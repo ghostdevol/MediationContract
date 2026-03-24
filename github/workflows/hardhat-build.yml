@@ -1,0 +1,38 @@
+name: Hardhat Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Compile Contracts
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout the repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 4️⃣ Compile Hardhat contracts
+      - name: Compile Contracts
+        run: npx hardhat compile
+
+      # 5️⃣ Optional: Run tests (if you add any later)
+      - name: Run Tests
+        run: npx hardhat test
